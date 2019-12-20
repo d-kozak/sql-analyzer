@@ -2,8 +2,16 @@ package io.dkozak.collibra.task
 
 import io.dkozak.collibra.task.ast.{ErrorNode, SelectStatement}
 
+
+/**
+ * Result of the analysis of one query, contains columns and tables that were encountered
+ */
 case class QueryMapping(tables: Set[String], columns: Set[String])
 
+/**
+ * Class running a simple analysis algorithm which counts the number of unique columns and tables
+ * found in a set of queries. If only one query is given, the algorithm only prints the number of encountered columns.
+ */
 class SqlAnalyzer {
   private val parser = new SqlParser
 
@@ -12,7 +20,7 @@ class SqlAnalyzer {
   def runAnalysis(queryList: List[String]): List[QueryMapping] = {
     val rootNodes = queryList.map(parser.parseQuery)
     val mapping = queryList.zip(rootNodes)
-      .map({ x => runAnalysis(x._1, x._2) })
+      .map(x => runAnalysis(x._1, x._2))
 
     val uniqueTables = mapping.flatMap({
       _.tables
