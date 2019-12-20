@@ -4,6 +4,7 @@ import org.scalatest.FunSuite
 
 /**
  * Tests of the parser
+ * TODO check the structure of the AST instead of just checking that the root is correct
  */
 class SqlParserTest extends FunSuite {
 
@@ -23,6 +24,10 @@ class SqlParserTest extends FunSuite {
 
   test("select a,c,d from e,f") {
     assert(parser.parseQuery("select a,c,d from e,f").isRight)
+  }
+
+  test("select a.b,c.d,d.f from e,f") {
+    assert(parser.parseQuery("select a.b,c.d,d.f from e,f").isRight)
   }
 
   test("sEleCt x,g fROm g,h") {
