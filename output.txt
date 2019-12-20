@@ -1,0 +1,22 @@
+Processing query 'SELECT a FROM t'
+Ast: Right(SelectStatement(List(ColumnReference(a,None)),List(TableRefence(t))))
+This query has 1 unique columns in it: Set(ColumnReference(a,None))
+Processing query 'SELECT a,b FROM t,d'
+Ast: Right(SelectStatement(List(ColumnReference(a,None), ColumnReference(b,None)),List(TableRefence(t), TableRefence(d))))
+This query has 2 unique columns in it: Set(ColumnReference(a,None), ColumnReference(b,None))
+Processing query 'SELECT a,b, c FROM t, d ,e'
+Ast: Right(SelectStatement(List(ColumnReference(a,None), ColumnReference(b,None), ColumnReference(c,None)),List(TableRefence(t), TableRefence(d), TableRefence(e))))
+This query has 3 unique columns in it: Set(ColumnReference(a,None), ColumnReference(b,None), ColumnReference(c,None))
+Processing query 'select a,c,d from e,f'
+Ast: Right(SelectStatement(List(ColumnReference(a,None), ColumnReference(c,None), ColumnReference(d,None)),List(TableRefence(e), TableRefence(f))))
+This query has 3 unique columns in it: Set(ColumnReference(a,None), ColumnReference(c,None), ColumnReference(d,None))
+Processing query 'sEleCt x,g fROm g,h'
+Ast: Right(SelectStatement(List(ColumnReference(x,None), ColumnReference(g,None)),List(TableRefence(g), TableRefence(h))))
+This query has 2 unique columns in it: Set(ColumnReference(x,None), ColumnReference(g,None))
+Processing query 'SELECTOS a FROM t'
+Ast: Left(ErrorNode(string matching regex '[a-z]+' expected but 'O' found))
+Query is invalid, nothing to analyze
+Analysis over multiple queries:
+Tables:HashSet(TableRefence(g), TableRefence(t), TableRefence(f), TableRefence(e), TableRefence(h), TableRefence(d))
+Columns:HashSet(ColumnReference(b,None), ColumnReference(d,None), ColumnReference(g,None), ColumnReference(a,None), ColumnReference(c,None), ColumnReference(x,None))
+Relationship base:List(QueryMapping(Set(TableRefence(t)),Set(ColumnReference(a,None))), QueryMapping(Set(TableRefence(t), TableRefence(d)),Set(ColumnReference(a,None), ColumnReference(b,None))), QueryMapping(Set(TableRefence(t), TableRefence(d), TableRefence(e)),Set(ColumnReference(a,None), ColumnReference(b,None), ColumnReference(c,None))), QueryMapping(Set(TableRefence(e), TableRefence(f)),Set(ColumnReference(a,None), ColumnReference(c,None), ColumnReference(d,None))), QueryMapping(Set(TableRefence(g), TableRefence(h)),Set(ColumnReference(x,None), ColumnReference(g,None))), QueryMapping(Set(),Set()))
